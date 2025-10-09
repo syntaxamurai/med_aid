@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
-import HeroImage from "./assets/hero.jpg"; // Replace with your hero image
-import AboutImage from "./assets/esther.jpg"; // Replace with Esther's photo
+import { useState, useEffect } from "react";
+import HeroImage from "./assets/hero.jpg";
+import AboutImage from "./assets/esther.jpg";
+import EstherStoryVideo from "./assets/estherstory.mp4";
 
 function App() {
   // Countdown timer to 30th Nov 2025
@@ -46,7 +47,8 @@ function App() {
             Help Support Esther's Surgery
           </h1>
           <p className="text-lg sm:text-xl max-w-xl mx-auto">
-            Join us in raising awareness and funds to help Esther undergo her surgery.
+            Join us in raising awareness and funds to help Esther undergo her
+            surgery.
           </p>
           <a
             href="#donation"
@@ -66,19 +68,30 @@ function App() {
         />
         <h2 className="text-2xl font-semibold mb-2">About Esther</h2>
         <p className="text-gray-700 max-w-md">
-          Esther is a vibrant young woman whose life has been impacted by a medical condition. She
-          needs surgery to restore her health and continue pursuing her dreams.
+          Esther is a vibrant young woman whose life has been impacted by a
+          medical condition. She needs surgery to restore her health and
+          continue pursuing her dreams.
         </p>
       </section>
 
       {/* Her Story */}
       <section className="px-6 py-8 bg-gray-50 text-center">
         <h2 className="text-2xl font-semibold mb-4">Her Story</h2>
-        <p className="text-gray-700 max-w-lg mx-auto leading-relaxed">
-          Esther’s journey has been challenging, and her family has been doing everything possible to
-          support her. The upcoming surgery is a critical step, and with your help, we can make it
-          possible.
+        <p className="text-gray-700 max-w-lg mx-auto leading-relaxed mb-6">
+          Esther’s journey has been challenging, and her family has been doing
+          everything possible to support her. The upcoming surgery is a critical
+          step, and with your help, we can make it possible.
         </p>
+
+        {/* Direct Video Embed */}
+        <h3 className="text-xl font-semibold mb-2">Know Esther in a Minute</h3>
+        <video
+          src={EstherStoryVideo}
+          controls
+          className="mx-auto w-full max-w-md rounded shadow"
+        >
+          Your browser does not support the video tag.
+        </video>
       </section>
 
       {/* Surgery Details */}
@@ -122,19 +135,29 @@ function App() {
       </section>
 
       {/* Donation Section */}
-      <section id="donation" className="px-6 py-8 bg-gray-50 text-center">
+      <section
+        id="donation"
+        className="px-6 py-8 bg-gray-50 text-center flex flex-col items-center"
+      >
         <h2 className="text-2xl font-semibold mb-6">Donate</h2>
 
         <div className="mb-6 space-y-2">
           <p className="text-gray-700 text-lg">
-            Paybill: <span className="font-bold text-gray-900">8024418</span>
+            Paybill:{" "}
+            <span className="font-bold text-gray-900">8024418</span>
           </p>
           <p className="text-gray-700 text-lg">
-            Account No: <span className="font-bold text-gray-900">ESTHER MEDICAL FUND</span>
+            Account No:{" "}
+            <span className="font-bold text-gray-900">
+              ESTHER MEDICAL FUND
+            </span>
           </p>
           <p className="text-gray-700 text-lg">
             Phone:{" "}
-            <a href="tel:+2547XXXXXXX" className="text-blue-600 hover:underline">
+            <a
+              href="tel:+2547XXXXXXX"
+              className="text-blue-600 hover:underline"
+            >
               +254 7XX XXX XXX
             </a>
           </p>
@@ -148,18 +171,18 @@ function App() {
         </button>
       </section>
 
-
       {/* Share Section */}
       <section className="px-6 py-8 text-center">
         <button
           onClick={() => {
             if (navigator.share) {
-              navigator.share({
-                title: "Help Esther Fund Her Surgery",
-                text: "Let's support Esther in her upcoming surgery. Every contribution counts!",
-                url: window.location.href,
-              })
-              .catch((error) => console.log("Error sharing:", error));
+              navigator
+                .share({
+                  title: "Help Esther Fund Her Surgery",
+                  text: "Let's support Esther in her upcoming surgery. Every contribution counts!",
+                  url: window.location.href,
+                })
+                .catch((error) => console.log("Error sharing:", error));
             } else {
               // Fallback: copy URL to clipboard
               navigator.clipboard.writeText(window.location.href);
@@ -170,7 +193,7 @@ function App() {
         >
           Share Esther's Story
         </button>
-      </section>      
+      </section>
 
       {/* Footer */}
       <footer className="px-6 py-4 text-center text-gray-500 text-sm">
