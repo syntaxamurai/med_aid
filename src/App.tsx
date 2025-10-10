@@ -6,7 +6,7 @@ import EstherStoryVideo from "./assets/estherstory.mp4";
 function App() {
   // Countdown timer to 30th Nov 2025
   const calculateTimeLeft = () => {
-    const difference = +new Date("2025-11-30T00:00:00") - +new Date();
+    const difference = +new Date("2025-10-30T00:00:00") - +new Date();
     let timeLeft: any = {};
 
     if (difference > 0) {
@@ -19,6 +19,7 @@ function App() {
     }
     return timeLeft;
   };
+  const [showMore, setShowMore] = useState(false);
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
@@ -47,8 +48,7 @@ function App() {
             Help Support Esther's Surgery
           </h1>
           <p className="text-lg sm:text-xl max-w-xl mx-auto">
-            Join us in raising awareness and funds to help Esther undergo her
-            surgery.
+            Join us in raising awareness, and funds to help Esther undergo her surgery.
           </p>
           <a
             href="#donation"
@@ -68,8 +68,7 @@ function App() {
         />
         <h2 className="text-2xl font-semibold mb-2">About Esther</h2>
         <p className="text-gray-700 max-w-md">
-          Esther is a vibrant young woman whose life has been impacted by a
-          medical condition. She needs surgery to restore her health and
+          Esther Obote is a vibrant daughter, mother, sister and friend whose life has been impacted by a brain tumor. She needs a second surgery to restore her health and
           continue pursuing her dreams.
         </p>
       </section>
@@ -78,8 +77,7 @@ function App() {
       <section className="px-6 py-8 bg-gray-50 text-center">
         <h2 className="text-2xl font-semibold mb-4">Her Story</h2>
         <p className="text-gray-700 max-w-lg mx-auto leading-relaxed mb-6">
-          Esther’s journey has been challenging, and her family has been doing
-          everything possible to support her. The upcoming surgery is a critical
+          Esther’s journey has been challenging, and her family and friends have been doing everything possible to support her. The upcoming surgery is a critical
           step, and with your help, we can make it possible.
         </p>
 
@@ -97,42 +95,87 @@ function App() {
       {/* Surgery Details */}
       <section className="px-6 py-8 bg-white text-center">
         <h2 className="text-2xl font-semibold mb-4">Surgery Details</h2>
-        <p className="text-gray-700 max-w-lg mx-auto mb-4">
-          Diagnosis: GRADE 2 BRAIN TUMOR
+        <p className="text-gray-700 max-w-lg mx-auto mb-4 leading-relaxed">
+          <span className="font-semibold">Diagnosis:</span> Low grade glioma
           <br />
-          Procedure: [Insert procedure]
+          <span className="font-semibold">Procedure:</span> Neuronavigation assisted brain tumor craniotomy
           <br />
-          Total Amount Needed: <span className="font-bold">KES 2,500,000</span>
+          Treatment Cost: <span className="font-semibold"> Kshs 2.5 Million</span>
+          <br />
         </p>
-        <div className="text-gray-700 mb-6 max-w-md mx-auto">
-          <h3 className="font-semibold mb-2">Fundraising Breakdown:</h3>
-          <ul className="list-disc list-inside">
-            <li>Hospital Fees: KES 2,300,000</li>
-            <li>Medication & Supplies: KES 100,000</li>
-            <li>Post-Surgery Care: KES 100,000</li>
-          </ul>
+
+        {/* Collapsible Cost Details */}
+        <div className="text-gray-700 max-w-md mx-auto mb-4 text-left">
+          <button
+            onClick={() => setShowMore((prev: boolean) => !prev)}
+            className="text-blue-600 font-semibold mb-3"
+          >
+            {showMore ? "Show Less ▲" : "Show More ▼"}
+          </button>
+
+          {showMore && (
+            <div className="transition-all duration-300 ease-in-out">
+              <p className="mb-3">
+                <span className="font-bold">Cost breakdown:</span>
+              </p>
+              <p className="mb-3">
+                <span className="font-semibold">Hospital Cost:</span> approximately KES 1,000,000 comprising of:
+              </p>
+              <ul className="list-disc list-inside mb-3 space-y-1">
+                <li>Theatre Fee: KES 550,000</li>
+                <li>Accommodation: KES 204,000 for 10 days (2 days ICU, 2 days HDU, 6 days ward)</li>
+                <li>Pharmacy: KES 90,000</li>
+                <li>MRI (pre & post-surgery): KES 80,000</li>
+                <li>Lab Tests: KES 40,000</li>
+                <li>Physiotherapy: KES 30,000</li>
+              </ul>
+              <p className="mb-3">
+              </p>
+              <p className="mb-3">
+                <span className="font-semibold">Doctors & Anaesthetist:</span> KES 770,000 — including KES 400,000 procedure fee, KES 120,000 ward care, and KES 250,000 for anaesthetist.
+              </p>
+              <p className="mb-3">
+                <span className="font-semibold">Post-care:</span> Not yet included, which is why the total target is <span className="font-bold">KES 2.5 Million</span>.
+              </p>
+              *These costs may increase depending on additional services or items the hospital provides.
+            </div>
+          )}
         </div>
 
         {/* Countdown Timer */}
-        <div className="flex justify-center gap-3 text-center mb-4 flex-wrap">
-          <div className="bg-gray-100 p-4 rounded shadow w-20">
-            <span className="block text-2xl font-bold">{timeLeft.days ?? 0}</span>
-            <span className="text-gray-500 text-sm">Days</span>
+        <div className="flex flex-col items-center justify-center mb-6">
+          <h3 className="text-xl font-semibold mb-3 text-gray-800">
+            Countdown to Surgery
+          </h3>
+
+          <div className="flex justify-center gap-4 text-center flex-wrap">
+            {[
+              { label: "Days", value: timeLeft.days ?? 0 },
+              { label: "Hours", value: timeLeft.hours ?? 0 },
+              { label: "Minutes", value: timeLeft.minutes ?? 0 },
+              { label: "Seconds", value: timeLeft.seconds ?? 0 },
+            ].map((item) => (
+              <div
+                key={item.label}
+                className="bg-blue-50 hover:bg-blue-100 transition p-5 rounded-2xl shadow-md w-24 sm:w-28"
+              >
+                <span className="block text-3xl font-extrabold text-blue-700">
+                  {item.value}
+                </span>
+                <span className="text-gray-600 text-sm font-medium">
+                  {item.label}
+                </span>
+              </div>
+            ))}
           </div>
-          <div className="bg-gray-100 p-4 rounded shadow w-20">
-            <span className="block text-2xl font-bold">{timeLeft.hours ?? 0}</span>
-            <span className="text-gray-500 text-sm">Hours</span>
-          </div>
-          <div className="bg-gray-100 p-4 rounded shadow w-20">
-            <span className="block text-2xl font-bold">{timeLeft.minutes ?? 0}</span>
-            <span className="text-gray-500 text-sm">Minutes</span>
-          </div>
-          <div className="bg-gray-100 p-4 rounded shadow w-20">
-            <span className="block text-2xl font-bold">{timeLeft.seconds ?? 0}</span>
-            <span className="text-gray-500 text-sm">Seconds</span>
-          </div>
+
+          <p className="mt-4 text-gray-600 text-sm">
+            Surgery scheduled for{" "}
+            <span className="font-semibold text-blue-700">30th October 2025</span>
+          </p>
         </div>
       </section>
+
 
       {/* Donation Section */}
       <section
@@ -155,10 +198,10 @@ function App() {
           <p className="text-gray-700 text-lg">
             Phone:{" "}
             <a
-              href="tel:+2547XXXXXXX"
+              href="tel:+254711179412"
               className="text-blue-600 hover:underline"
             >
-              +254 7XX XXX XXX
+              +254 711 179 412
             </a>
           </p>
         </div>
